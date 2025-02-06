@@ -76,6 +76,19 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEquals(9, banana_item.quality)
 
+    # test logical error of quality increase for Aged Brie behaves differently
+    # at boundary condition
+    def test_boundary_aged_brie_quality_increase_rate(self):
+        items = [Item("Aged Brie", 1, 15)]
+        aged_brie_item = items[0]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        # this correctly passes, and adds one to quality
+        self.assertEquals(16, aged_brie_item.quality)
+        gilded_rose.update_quality()
+        # this fails, since it adds two to quality, which is inconsistent
+        self.assertEquals(17, aged_brie_item.quality)
+
     # test syntax error for adding an item
     def test_gilded_rose_add_item(self):
         items = [Item("Backstage passes", 1, 30)]
