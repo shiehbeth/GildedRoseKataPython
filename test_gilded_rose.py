@@ -22,42 +22,6 @@ class GildedRoseTest(unittest.TestCase):
         all_items = gilded_rose.get_items()
         self.assertEquals(["Sulfuras"], all_items)
 
-    # test logical error (incorrect naming) for backstage pass with <=10 sell
-    # in days should increase quality by 2
-    def test_backstage_pass_should_increase_quality_sell_in_leq_10(self):
-        items = [Item("Backstage passes", 8, 30)]
-        backstage_pass_item = items[0]
-        gilded_rose = GildedRose(items)
-        gilded_rose.update_quality()
-        self.assertEquals(32, backstage_pass_item.quality)
-
-    # test logical error (incorrect naming) for backstage pass with <=3 sell
-    # in days should increase quality by 3
-    def test_backstage_pass_should_increase_quality_sell_in_leq_5(self):
-        items = [Item("Backstage passes", 3, 30)]
-        backstage_pass_item = items[0]
-        gilded_rose = GildedRose(items)
-        gilded_rose.update_quality()
-        self.assertEquals(33, backstage_pass_item.quality)
-
-    # test logical error for backstage pass (incorrect naming) quality should
-    # be 0 after concert date
-    def test_backstage_pass_quality_drop_zero_after_concert_date(self):
-        items = [Item("Backstage passes", 0, 50)]
-        backstage_pass_item = items[0]
-        gilded_rose = GildedRose(items)
-        gilded_rose.update_quality()
-        self.assertEquals(0, backstage_pass_item.quality)
-
-    # test logical error with invalid starting quality over 50
-    # for backstage passes should raise error
-    def test_out_of_bounds_starting_quality_over(self):
-        items = [Item("Backstage passes", 1, 60)]
-        backstage_pass_item = items[0]
-        gilded_rose = GildedRose(items)
-        gilded_rose.update_quality()
-        self.assertRaises(ValueError, lambda: backstage_pass_item.quality)
-
     # test logical error with invalid starting quality less than 0
     # should raise error
     def test_out_of_bounds_starting_quality_under(self):
@@ -96,6 +60,44 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.add_item(new_item)
         self.assertEquals(gilded_rose.items[1], new_item)
+
+    # Additional failed tests implemented below:
+
+    # test logical error with invalid starting quality over 50
+    # for backstage passes should raise error
+    def test_out_of_bounds_starting_quality_over(self):
+        items = [Item("Backstage passes", 1, 60)]
+        backstage_pass_item = items[0]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertRaises(ValueError, lambda: backstage_pass_item.quality)
+
+    # test error (incorrect naming) for backstage pass with <=10 sell
+    # in days should increase quality by 2
+    def test_backstage_pass_should_increase_quality_sell_in_leq_10(self):
+        items = [Item("Backstage passes", 8, 30)]
+        backstage_pass_item = items[0]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEquals(32, backstage_pass_item.quality)
+
+    # test error (incorrect naming) for backstage pass with <=3 sell
+    # in days should increase quality by 3
+    def test_backstage_pass_should_increase_quality_sell_in_leq_5(self):
+        items = [Item("Backstage passes", 3, 30)]
+        backstage_pass_item = items[0]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEquals(33, backstage_pass_item.quality)
+
+    # test error for backstage pass (incorrect naming) quality should
+    # be 0 after concert date
+    def test_backstage_pass_quality_drop_zero_after_concert_date(self):
+        items = [Item("Backstage passes", 0, 50)]
+        backstage_pass_item = items[0]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEquals(0, backstage_pass_item.quality)
 
 
 if __name__ == '__main__':
