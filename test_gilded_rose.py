@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose
-from gilded_rose import SubItem, AgedBrie, Sulfuras, BackstagePasses
-from gilded_rose import NormalItem, Conjured
+from gilded_rose import GildedRose
+from gilded_rose import AgedBrie, Sulfuras, BackstagePasses
+from gilded_rose import NormalItem
 
 
 class GildedRoseTest(unittest.TestCase):
